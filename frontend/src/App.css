@@ -1,0 +1,17 @@
+div{
+  padding: 10px;
+}
+button{
+  padding: 0.2em 0.5em;
+  margin: 1em;
+  border-radius: 5px;
+}
+input{
+  border-radius: 5px;
+  padding: 0.25em;
+  margin: 2px;
+}
+label{
+  font-size: medium;
+  color: brown;
+}
