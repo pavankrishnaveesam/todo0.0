@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "./App.css";
+import TodoCard from "./components/TodoCard";
+import CreateTodo from "./components/CreateTodo";
 
 const baseURL = "http://localhost:3000";
 
@@ -58,51 +60,19 @@ function App() {
     <>
       <div>
         {todoList?.map((todo, index) => (
-          <div key={index}>
-            <input
-              type="checkbox"
-              id={todo._id}
-              onChange={(e) => updateTodo(e, todo)}
-              checked={todo.isDone}
-            ></input>
-            <label htmlFor={todo._id}>
-              <span>
-                <p>{todo.name}</p>
-              </span>
-              <span>
-                <p>{todo.description}</p>
-              </span>
-              <button onClick={(e) => deleteTodo(e, todo)}>delete</button>
-            </label>
-          </div>
+          <TodoCard
+            index={index}
+            todo={todo}
+            deleteTodo={deleteTodo}
+            updateTodo={updateTodo}
+          />
         ))}
       </div>
-      <div id="createTodo">
-        <div>
-          <label htmlFor="name">Name:</label>
-          <input
-            type="text"
-            id="name"
-            onChange={(e) => setNewTodo({ ...newTodo, name: e.target.value })}
-            value={newTodo.name}
-          ></input>
-        </div>
-        <div>
-          <label htmlFor="decription">Description:</label>
-          <input
-            type="text"
-            id="description"
-            onChange={(e) =>
-              setNewTodo({ ...newTodo, description: e.target.value })
-            }
-            value={newTodo.description}
-          ></input>
-        </div>
-
-        <button id="createbutton" onClick={createTodo}>
-          create
-        </button>
-      </div>
+      <CreateTodo
+        newTodo={newTodo}
+        createTodo={createTodo}
+        setNewTodo={setNewTodo}
+      />
     </>
   );
 }
