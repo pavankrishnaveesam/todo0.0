@@ -10,6 +10,7 @@ const ToDoSchema = new mongoose.Schema({
   name: String,
   description: String,
   isDone: Boolean,
+  lastUpdated: Date,
 });
 
 //Model

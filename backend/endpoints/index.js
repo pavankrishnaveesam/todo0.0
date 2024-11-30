@@ -28,10 +28,12 @@ app.post("/newtodo", async (req, res) => {
   const name = req.body.name;
   const description = req.body.description;
   const isDone = false;
+  const lastUpdated = new Date().toISOString();
   const newTodo = await ToDo.create({
     name,
     description,
     isDone,
+    lastUpdated,
   });
   if (newTodo) {
     res.status(200).json({ msg: "ToDo added succesfully" });

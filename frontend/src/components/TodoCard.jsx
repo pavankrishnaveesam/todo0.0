@@ -1,6 +1,14 @@
 import axios from "axios";
 import React from "react";
 import { baseURL } from "../App";
+import {
+  differenceInYears,
+  differenceInMonths,
+  differenceInDays,
+  differenceInHours,
+  differenceInMinutes,
+  differenceInSeconds,
+} from "date-fns";
 
 const TodoCard = ({ todo, getALLTodosFromBackend }) => {
   //update call
@@ -24,6 +32,36 @@ const TodoCard = ({ todo, getALLTodosFromBackend }) => {
     if (result) {
       getALLTodosFromBackend();
     }
+  };
+
+  const lastUpdatedTime = () => {
+    const backendDate = todo.lastUpdated;
+    if (backendDate) {
+      const givenDate = new Date(backendDate);
+      const currentDate = new Date();
+
+      const years = differenceInYears(currentDate, givenDate);
+      const months = differenceInMonths(currentDate, givenDate) % 12; // Remaining months
+      const days = differenceInDays(currentDate, givenDate) % 30; // Remaining days
+      const hours = differenceInHours(currentDate, givenDate) % 24; // Remaining hours
+      const minutes = differenceInMinutes(currentDate, givenDate) % 60; // Remaining minutes
+      const seconds = differenceInSeconds(currentDate, givenDate) % 60; // Remaining seconds
+
+      if (years > 0) {
+        return `${years} year${years > 1 ? "s" : ""}`;
+      } else if (months > 0) {
+        return `${months} month${months > 1 ? "s" : ""}`;
+      } else if (days > 0) {
+        return `${days} day${days > 1 ? "s" : ""}`;
+      } else if (hours > 0) {
+        return `${hours} hour${hours > 1 ? "s" : ""}`;
+      } else if (minutes > 0) {
+        return `${minutes} minute${minutes > 1 ? "s" : ""}`;
+      } else {
+        return `${seconds} second${seconds > 1 ? "s" : ""}`;
+      }
+    }
+    return "unknown time";
   };
 
   return (
@@ -58,7 +96,7 @@ const TodoCard = ({ todo, getALLTodosFromBackend }) => {
             {todo.description}
           </p>
           <p class="card-text">
-            <small class="text-muted">Last updated 3 mins ago</small>
+            <small class="text-muted">{`Last updated ${lastUpdatedTime()} ago`}</small>
           </p>
         </label>
       </div>
