@@ -27,22 +27,41 @@ const TodoCard = ({ todo, getALLTodosFromBackend }) => {
   };
 
   return (
-    <div>
-      <input
-        type="checkbox"
-        id={todo._id}
-        onChange={updateTodo}
-        checked={todo.isDone}
-      ></input>
-      <label htmlFor={todo._id}>
-        <span>
-          <p>{todo.name}</p>
-        </span>
-        <span>
-          <p>{todo.description}</p>
-        </span>
-        <button onClick={deleteTodo}>delete</button>
-      </label>
+    <div className="d-flex col-sm-5 col-12 card m-2">
+      <div className="px-4 py-2 d-flex align-items-center justify-content-between">
+        <input
+          type="checkbox"
+          id={todo._id}
+          onChange={updateTodo}
+          checked={todo.isDone}
+          className="checkbox-large"
+        ></input>
+        <button className="btn btn-primary" onClick={deleteTodo}>
+          delete
+        </button>
+      </div>
+      <div className="card-body">
+        <label htmlFor={todo._id}>
+          <h5
+            className={`card-title ${
+              todo.isDone ? "text-decoration-line-through" : ""
+            }`}
+          >
+            {todo.name}
+          </h5>
+
+          <p
+            className={`card-text ${
+              todo.isDone ? "text-decoration-line-through" : ""
+            }`}
+          >
+            {todo.description}
+          </p>
+          <p class="card-text">
+            <small class="text-muted">Last updated 3 mins ago</small>
+          </p>
+        </label>
+      </div>
     </div>
   );
 };

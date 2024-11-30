@@ -21,7 +21,7 @@ function App() {
 
   return (
     <>
-      <div>
+      <div className="d-flex flex-wrap p-2 justify-content-center">
         {todoList?.map((todo, index) => (
           <TodoCard
             key={index}
