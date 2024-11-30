@@ -1,6 +1,24 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
+import { baseURL } from "../App";
 
-const CreateTodo = ({ newTodo, setNewTodo, createTodo }) => {
+const CreateTodo = ({ getALLTodosFromBackend }) => {
+  const [newTodo, setNewTodo] = useState({
+    name: "",
+    description: "",
+  });
+
+  //create call
+  const createTodo = async () => {
+    const result = await axios.post(`${baseURL}/newtodo`, newTodo);
+    if (result.status === 200) {
+      setNewTodo({
+        name: "",
+        description: "",
+      });
+      getALLTodosFromBackend();
+    }
+  };
   return (
     <div id="createTodo">
       <div>

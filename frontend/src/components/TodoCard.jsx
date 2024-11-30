@@ -1,12 +1,37 @@
+import axios from "axios";
 import React from "react";
+import { baseURL } from "../App";
 
-const TodoCard = ({ index, todo, updateTodo, deleteTodo }) => {
+const TodoCard = ({ todo, getALLTodosFromBackend }) => {
+  //update call
+  const updateTodo = async () => {
+    //send the id and the value to be updated of property/properties to backend
+    const result = await axios.post(`${baseURL}/update`, {
+      id: todo._id,
+      isDone: !todo.isDone,
+    });
+    //fetch the new rocords and render
+    if (result) {
+      getALLTodosFromBackend();
+    }
+  };
+
+  //delete call
+  const deleteTodo = async () => {
+    const result = await axios.post(`${baseURL}/delete`, {
+      id: todo._id,
+    });
+    if (result) {
+      getALLTodosFromBackend();
+    }
+  };
+
   return (
-    <div key={index}>
+    <div>
       <input
         type="checkbox"
         id={todo._id}
-        onChange={(e) => updateTodo(e, todo)}
+        onChange={updateTodo}
         checked={todo.isDone}
       ></input>
       <label htmlFor={todo._id}>
@@ -16,7 +41,7 @@ const TodoCard = ({ index, todo, updateTodo, deleteTodo }) => {
         <span>
           <p>{todo.description}</p>
         </span>
-        <button onClick={(e) => deleteTodo(e, todo)}>delete</button>
+        <button onClick={deleteTodo}>delete</button>
       </label>
     </div>
   );
