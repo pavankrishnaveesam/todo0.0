@@ -36,7 +36,7 @@ const TodoCard = ({ todo, getALLTodosFromBackend }) => {
           checked={todo.isDone}
           className="checkbox-large"
         ></input>
-        <button className="btn btn-primary" onClick={deleteTodo}>
+        <button className="btn btn-outline-primary btn-sm" onClick={deleteTodo}>
           delete
         </button>
       </div>
