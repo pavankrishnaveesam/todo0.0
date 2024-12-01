@@ -95,8 +95,8 @@ const TodoCard = ({ todo, getALLTodosFromBackend }) => {
           >
             {todo.description}
           </p>
-          <p class="card-text">
-            <small class="text-muted">{`Last updated ${lastUpdatedTime()} ago`}</small>
+          <p className="card-text">
+            <small className="text-muted">{`Last updated ${lastUpdatedTime()} ago`}</small>
           </p>
         </label>
       </div>
