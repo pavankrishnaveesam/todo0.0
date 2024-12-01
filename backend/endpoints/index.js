@@ -53,9 +53,10 @@ app.post("/delete", async (req, res) => {
 app.post("/update", async (req, res) => {
   const id = req.body.id;
   const isDone = req.body.isDone;
+  const lastUpdated = new Date().toISOString();
   const updatedRecord = await ToDo.updateOne(
     { _id: id }, // Filter by _id --get the record from db with id
-    { $set: { isDone: isDone } } // Update `isDone` field --update the column/property
+    { $set: { isDone: isDone, lastUpdated: lastUpdated } } // Update `isDone` field --update the column/property
   );
   if (updatedRecord) {
     res.status(200).json(updatedRecord);
