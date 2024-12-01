@@ -1,12 +1,14 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { baseURL } from "../App";
+import { useNavigate } from "react-router-dom";
 
 const CreateTodo = ({ getALLTodosFromBackend }) => {
   const [newTodo, setNewTodo] = useState({
     name: "",
     description: "",
   });
+  const navigate = useNavigate();
 
   //create call
   const createTodo = async () => {
@@ -17,10 +19,11 @@ const CreateTodo = ({ getALLTodosFromBackend }) => {
         description: "",
       });
       getALLTodosFromBackend();
+      navigate("/");
     }
   };
   return (
-    <div className="container d-flex justify-content-center align-items-center ">
+    <div className="container d-flex justify-content-center align-items-center mt-5">
       <div id="createTodo" className="w-50">
         <div className="mb-3">
           <label htmlFor="name" className="form-label">
@@ -38,15 +41,15 @@ const CreateTodo = ({ getALLTodosFromBackend }) => {
           <label htmlFor="decription" className="form-label">
             Description:
           </label>
-          <input
-            type="text"
+          <textarea
+            rows="10"
             id="description"
             className="form-control"
             onChange={(e) =>
               setNewTodo({ ...newTodo, description: e.target.value })
             }
             value={newTodo.description}
-          ></input>
+          ></textarea>
         </div>
         <div className="d-flex justify-content-center m-4">
           <button

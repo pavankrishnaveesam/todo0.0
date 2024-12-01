@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import axios from "axios";
 import "./App.css";
-import TodoCard from "./components/TodoCard";
 import CreateTodo from "./components/CreateTodo";
+import AllTodos from "./components/AllTodos";
 
 export const baseURL = "http://localhost:3000";
 
@@ -21,16 +22,25 @@ function App() {
 
   return (
     <>
-      <div className="d-flex flex-wrap p-2 justify-content-center">
-        {todoList?.map((todo, index) => (
-          <TodoCard
-            key={index}
-            todo={todo}
-            getALLTodosFromBackend={getALLTodosFromBackend}
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <AllTodos
+                todoList={todoList}
+                getALLTodosFromBackend={getALLTodosFromBackend}
+              />
+            }
           />
-        ))}
-      </div>
-      <CreateTodo getALLTodosFromBackend={getALLTodosFromBackend} />
+          <Route
+            path="/createtodo"
+            element={
+              <CreateTodo getALLTodosFromBackend={getALLTodosFromBackend} />
+            }
+          />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
